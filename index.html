@@ -52,6 +52,7 @@
       var text = LZString.decompressFromEncodedURIComponent(window.location.hash.substr(1));
       raw.value = text;
       main.innerHTML = md.render(text);
+      urlLengthDisplay.innerHTML = (''+window.location).length;
     }
     raw.oninput = function() {
       window.location.hash = LZString.compressToEncodedURIComponent(raw.value);
