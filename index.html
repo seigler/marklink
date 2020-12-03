@@ -37,6 +37,7 @@
 <body>
   <input type="radio" name="renderstyle" id="renderview" />
   <input type="radio" name="renderstyle" id="renderedit" checked />
+  <span>URL length: <span id="urlLengthDisplay">0</span> characters</span>
   <label class="view" for="renderedit">Edit</label>
   <label class="edit" for="renderview">View</label>
   <main class="view" id="main">
@@ -55,6 +56,7 @@
     raw.oninput = function() {
       window.location.hash = LZString.compressToEncodedURIComponent(raw.value);
       main.innerHTML = md.render(raw.value);
+      urlLengthDisplay.innerHTML = (''+window.location).length;
     }
   </script>
 </body>
