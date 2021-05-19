@@ -55,7 +55,7 @@
       urlLengthDisplay.innerHTML = (''+window.location).length;
     }
     raw.oninput = function() {
-      window.location.hash = LZString.compressToEncodedURIComponent(raw.value);
+      history.replaceState(null, null, LZString.compressToEncodedURIComponent(raw.value));
       main.innerHTML = md.render(raw.value);
       urlLengthDisplay.innerHTML = (''+window.location).length;
     }
