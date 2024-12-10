@@ -5,128 +5,147 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>MarkLink document-in-a-URL</title>
+  <link rel="stylesheet" type="text/css" href="styles/hljs-github-light.css" media="prefers-color-scheme: light">
+  <link rel="stylesheet" type="text/css" href="styles/hljs-monokai-dark.css" media="prefers-color-scheme: dark">
   <style>
-    * { box-sizing: border-box; }
-    html, body {
-      height: 100%;
-      margin: 0;
-    }
-    body {
-      display: flex;
-      flex-direction: column;
-      padding: 1em;
-      background: #23241f;
-      color: #f8f8f2;
-    }
-    input[type=radio] {
-      position: fixed;
-      bottom: 110%;
-    }
-    #renderview:checked ~ .edit, #renderedit:checked ~ .view { display: none; }
-    label {
-      margin: 0 0 0.5em auto;
-      flex-grow: 0;
-      color: #33F;
-      text-decoration: underline;
-      cursor: pointer;
-      -webkit-user-select: none; /* Safari */        
-      -moz-user-select: none; /* Firefox */
-      -ms-user-select: none; /* IE10+/Edge */
-      user-select: none; /* Standard */
-    }
-    textarea {
-      flex-grow: 1;
-      resize: none;
-    }
-  </style>
-  <style>
-/*
-
-Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-license.org/
-
-*/
-
-.hljs {
-  background: #23241f;
-  color: #f8f8f2;
+* {
+  box-sizing: border-box;
 }
 
-.hljs-tag,
-.hljs-subst {
-  color: #f8f8f2;
+html,
+body {
+  height: 100%;
+  margin: 0;
 }
 
-.hljs-strong,
-.hljs-emphasis {
-  color: #a8a8a2;
+body {
+  --color-text: hsl(210, 12%, 16%);
+  --color-background: white;
+  --color-accent: hsla(210, 12%, 16%, 0.3);
+  --color-code-background: hsla(210, 12%, 16%, 0.1);
+  --color-link: #33F;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: sans-serif;
 }
 
-.hljs-bullet,
-.hljs-quote,
-.hljs-number,
-.hljs-regexp,
-.hljs-literal,
-.hljs-link {
-  color: #ae81ff;
+@media (prefers-color-scheme: dark) {
+  body {
+    --color-text: hsl(60, 30%, 96%);
+    --color-background: #1e1f1c;
+    --color-accent: hsla(60, 30%, 96%, 0.3);
+    --color-code-background: hsla(60, 30%, 96%, 0.1);
+    --color-link: #9AF;
+  }
 }
 
-.hljs-code,
-.hljs-title,
-.hljs-section,
-.hljs-selector-class {
-  color: #a6e22e;
+input[type=radio] {
+  position: fixed;
+  bottom: 110%;
 }
 
-.hljs-strong {
-  font-weight: bold;
+#renderview:checked~.edit,
+#renderedit:checked~.view {
+  display: none;
 }
 
-.hljs-emphasis {
-  font-style: italic;
+a[href] {
+  color: var(--color-link);
 }
 
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-name,
-.hljs-attr {
-  color: #f92672;
+label {
+  margin: 0 0 0.5em auto;
+  flex-grow: 0;
+  color: var(--color-link);
+  text-decoration: underline;
+  cursor: pointer;
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+/Edge */
+  user-select: none;
+  /* Standard */
 }
 
-.hljs-symbol,
-.hljs-attribute {
-  color: #66d9ef;
+textarea {
+  flex-grow: 1;
+  resize: none;
 }
 
-.hljs-params,
-.hljs-title.class_,
-.hljs-class .hljs-title {
-  color: #f8f8f2;
+/* Markdown styles */
+main.view {
+  font-size: 18px;
+  color: var(--color-text);
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: 300;
+  margin: 0 auto;
+  max-width: 48rem;
+  line-height: 1.45;
+  padding: .25rem;
 }
 
-.hljs-string,
-.hljs-type,
-.hljs-built_in,
-.hljs-selector-id,
-.hljs-selector-attr,
-.hljs-selector-pseudo,
-.hljs-addition,
-.hljs-variable,
-.hljs-template-variable {
-  color: #e6db74;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Arimo, Helvetica, sans-serif;
 }
 
-.hljs-comment,
-.hljs-deletion,
-.hljs-meta {
-  color: #75715e;
+h1,
+h2,
+h3 {
+  border-bottom: 2px solid var(--color-accent);
+  margin-bottom: 1.15rem;
+  padding-bottom: .5rem;
+  text-align: left;
+}
+
+hr {
+  border-color: var(--color-accent);
+}
+
+blockquote {
+  border-left: 8px solid var(--color-accent);
+  padding: 0.5rem 1rem;
+  margin-inline: 0;
+}
+blockquote > :first-child {
+  margin-top: 0;
+}
+blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+ol, ul {
+  padding-left: 1em;
+}
+
+code {
+  background-color: var(--color-code-background);
+}
+
+pre>code {
+  background-color: transparent;
+}
+
+pre, .hljs {
+  padding: 0.5rem 0.75rem;
+  background-color: var(--color-code-background);
 }
   </style>
 </head>
 <body>
   <input type="radio" name="renderstyle" id="renderview" />
   <input type="radio" name="renderstyle" id="renderedit" checked />
-  <label class="view" for="renderedit">Edit</label>
   <label class="edit" for="renderview">View</label>
+  <label class="view" for="renderedit">Edit</label>
   <div class="edit">URL length: <span id="urlLengthDisplay">0</span> characters</div>
   <main class="view" id="main">
   </main>
