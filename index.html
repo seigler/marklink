@@ -1317,6 +1317,14 @@ return je}()
 ;"object"==typeof exports&&"undefined"!=typeof module&&(module.exports=hljs);
   </script>
   <script>
+    function updateCountAndTitle() {
+      urlLengthDisplay.innerHTML = (''+window.location).length;
+      if (main.firstChild && main.firstChild.innerText) {
+        document.title = main.firstChild.innerText.split('\n')[0];
+      } else {
+        document.title = "MarkLink document-in-a-URL";
+      }
+    }
     var md = new window.markdownit({
       linkify:true,
       typographer: true,
@@ -1337,12 +1345,12 @@ return je}()
       var text = LZString.decompressFromEncodedURIComponent(window.location.hash.substr(1));
       raw.value = text;
       main.innerHTML = md.render(text);
-      urlLengthDisplay.innerHTML = (''+window.location).length;
+      updateCountAndTitle();
     }
     raw.oninput = function() {
       history.replaceState(null, null, "#"+LZString.compressToEncodedURIComponent(raw.value));
       main.innerHTML = md.render(raw.value);
-      urlLengthDisplay.innerHTML = (''+window.location).length;
+      updateCountAndTitle();
     }
   </script>
 </body>
